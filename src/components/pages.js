@@ -5,124 +5,167 @@ import { renderIcons } from './icons.js';
 // Render the home page
 export function renderHomePage() {
   return `
-    <h1 class="name">${profile.name}</h1>
-    
     <div class="bento-grid">
-      <!-- About Card -->
-      <div class="card about-card">
+      <!-- About Card - MEDIUM -->
+      <div class="card card-medium about-card">
         <span class="section-label">About</span>
-        <p>${profile.tagline}</p>
+        <p>I'm a Singapore based designer, driven by curiosity and a love for solving complex problems.</p>
       </div>
       
-      <!-- Profile Photo Card -->
-      <div class="card profile-card">
-        <a href="/chat" class="ai-button">
-          <span>Chat with my</span>
-          <strong>AI Assistant</strong>
-        </a>
+      <!-- Profile Photo Card - SMALL -->
+      <div class="card card-small profile-card">
         <div class="profile-photo-wrapper">
-          <img src="${profile.rotatingText ? '/src/assets/images/rotating-badge.png' : ''}" class="rotating-text" alt="">
-          <img src="/src/assets/images/profile.png" class="profile-photo" alt="${profile.name}">
+          <svg class="rotating-text-svg" viewBox="0 0 200 200">
+            <defs>
+              <path id="circlePath" d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0"/>
+            </defs>
+            <text>
+              <textPath href="#circlePath" class="rotating-text-path">
+                WORKING ON COOL STUFF • PRODUCT DESIGNER • 
+              </textPath>
+            </text>
+          </svg>
+          <img src="/images/profile.png" class="profile-photo" alt="${profile.name}">
         </div>
       </div>
       
-      <!-- Case Study 1: Offers & More -->
-      ${renderCaseStudyCard(caseStudies[0])}
-      
-      <!-- LinkedIn Card -->
-      <a href="https://www.linkedin.com/in/parthdhawan/" target="_blank" rel="noopener" class="card linkedin-card">
+      <!-- LinkedIn Card - SMALL (next to profile) -->
+      <a href="https://www.linkedin.com/in/parthdhawan/" target="_blank" rel="noopener" class="card card-small linkedin-card">
         ${renderIcons.linkedin()}
-        <span class="arrow">${renderIcons.arrow()}</span>
+        <span class="arrow-icon-small">↗</span>
       </a>
       
-      <!-- Experience Card -->
-      <div class="card experience-card">
+      <!-- Case Study 1: Offers & More - MEDIUM on mobile -->
+      ${renderCaseStudyCardTall(caseStudies[0])}
+      
+      <!-- Experience Card - MEDIUM -->
+      <div class="card card-medium experience-card">
         <span class="section-label">Experience</span>
         <ul class="experience-list">
           ${experience.map(exp => `
             <li class="experience-item">
-              <div>
-                <h4>${exp.title}</h4>
-                <span class="company">${exp.company}</span>
+              <div class="exp-left">
+                <span class="exp-title">${exp.title}</span>
+                <span class="exp-company">${exp.company}</span>
               </div>
-              <span class="period">${exp.period}</span>
+              <span class="exp-period">${exp.period}</span>
             </li>
           `).join('')}
         </ul>
         <a href="${profile.resumeUrl}" target="_blank" rel="noopener" class="resume-link">
-          View resume ${renderIcons.arrow()}
+          View resume <span class="arrow">↗</span>
         </a>
       </div>
       
-      <!-- Services Card -->
-      <div class="card services-card">
+      <!-- Case Study 2: Group Orders - MEDIUM -->
+      ${renderCaseStudyCard(caseStudies[1], 'card-medium')}
+      
+      <!-- Services Card - MEDIUM -->
+      <div class="card card-medium service-card">
         <span class="section-label">Services</span>
-        <div class="services-carousel">
-          ${services.map(service => `
-            <div class="service-item">
-              <h3>${service.title}</h3>
-              <p>${service.description}</p>
-            </div>
-          `).join('')}
-          <!-- Duplicate for infinite scroll effect -->
-          ${services.map(service => `
-            <div class="service-item">
-              <h3>${service.title}</h3>
-              <p>${service.description}</p>
-            </div>
-          `).join('')}
+        <h3>Mobile/Web Designs</h3>
+        <p>Crafting intuitive and engaging designs for both mobile and web platforms.</p>
+      </div>
+      
+      <!-- Reading List Card - MEDIUM -->
+      <div class="card card-medium reading-list-card">
+        <span class="section-label">Reading list</span>
+        <div class="books-grid">
+          <img src="/images/book-beginning.jpg" alt="The Beginning of Infinity" class="book-cover">
+          <img src="/images/book-fabric.jpg" alt="The Fabric of Reality" class="book-cover">
+          <img src="/images/book-cease.jpg" alt="When We Cease to Understand the World" class="book-cover">
         </div>
       </div>
       
-      <!-- Case Study 2: Group Orders -->
-      ${renderCaseStudyCard(caseStudies[1])}
+      <!-- Case Study 3: Trip Planning - MEDIUM -->
+      ${renderCaseStudyCard(caseStudies[2], 'card-medium')}
       
-      <!-- Reading List Card -->
-      <a href="${readingList.url}" class="card reading-card">
-        <div>
-          <span class="section-label">Reading list</span>
-        </div>
-        <img src="/src/assets/images/book-cover.png" class="book-cover" alt="${readingList.featuredBook.title}">
+      <!-- Social Links - SMALL each -->
+      <a href="https://x.com/wwheisenbergeth" target="_blank" rel="noopener" class="card card-small social-link-card">
+        ${renderIcons.twitter()}
+        <span>@wwheisenbergeth</span>
       </a>
       
-      <!-- Case Study 3: Cart & Trip Planning -->
-      ${renderCaseStudyCard(caseStudies[2])}
+      <a href="https://www.instagram.com/parth_dhawan/" target="_blank" rel="noopener" class="card card-small social-link-card">
+        ${renderIcons.instagram()}
+        <span>@parth_dhawan</span>
+      </a>
       
-      <!-- Social Links -->
-      <div class="card card--span-2">
-        <div class="social-grid">
-          ${socialLinks.map(social => `
-            <a href="${social.url}" target="_blank" rel="noopener" class="card social-card">
-              ${renderIcons[social.icon]()}
-              <h5>${social.handle}</h5>
-            </a>
-          `).join('')}
-          ${additionalLinks.map(link => `
-            <a href="${link.url.startsWith('http') ? link.url : link.url}" ${link.url.startsWith('http') ? 'target="_blank" rel="noopener"' : ''} class="card social-card">
-              ${renderIcons[link.icon] ? renderIcons[link.icon]() : ''}
-              <h5>${link.title}</h5>
-            </a>
-          `).join('')}
-        </div>
-      </div>
+      <a href="mailto:parthdhawan28@gmail.com" class="card card-small social-link-card">
+        ${renderIcons.email()}
+        <span>parthdhawan28</span>
+      </a>
+      
+      <!-- Talk to AI Assistant - SMALL -->
+      <a href="/chat" class="card card-small ai-link-card">
+        <span>Talk to my AI assistant</span>
+      </a>
+      
+      <!-- Free Icon Set - SMALL -->
+      <a href="https://www.figma.com/community/file/1275092859040896934/free-editable-icon-set-with-animations" target="_blank" rel="noopener" class="card card-small icon-set-card">
+        <span class="free-badge">FREE</span>
+        <span>Icon set</span>
+      </a>
     </div>
     
     <footer class="footer">
-      <p>Built with ⚡ by Parth Dhawan</p>
+      <p>vibecoded with claude code</p>
     </footer>
+    
+    <!-- Floating AI Chat Widget -->
+    <div class="ai-chat-floating" id="aiChat">
+      <div class="ai-chat-popup" id="aiChatPopup">
+        <div class="ai-chat-bubble">
+          <img src="/images/profile.png" class="ai-avatar" alt="AI">
+          <div class="ai-message">
+            <p>Hi, I'm an AI version of Parth! I can answer questions about his experience and skills. Feel free to ask me anything!</p>
+          </div>
+        </div>
+        <a href="/chat" class="ai-chat-input">
+          <span>Ask me anything...</span>
+          <span class="send-icon">→</span>
+        </a>
+      </div>
+      <button class="ai-chat-trigger" onclick="document.getElementById('aiChatPopup').classList.toggle('show')">
+        <span>Chat with my</span>
+        <strong>AI Assistant</strong>
+      </button>
+    </div>
   `;
 }
 
 // Render a case study card
-function renderCaseStudyCard(study) {
+function renderCaseStudyCard(study, sizeClass = 'card-medium') {
   const mockupImage = study.id === 'offerandmore' 
-    ? '/src/assets/images/offers-mockup.png'
+    ? '/images/offers-mockup.png'
     : study.id === 'grouporders'
-    ? '/src/assets/images/grouporders-mockup.png'
-    : '/src/assets/images/tripplanning-mockup.png';
+    ? '/images/grouporders-mockup.png'
+    : '/images/tripplanning-mockup.png';
     
   return `
-    <a href="${study.slug}" class="card case-study-card">
+    <a href="${study.slug}" class="card ${sizeClass} case-study-card">
+      <div class="card-content">
+        <span class="section-label">Case Study</span>
+        <h3>${study.title}</h3>
+        <span class="company">${study.company}</span>
+      </div>
+      <div class="mockup">
+        <img src="${mockupImage}" alt="${study.title} mockup">
+      </div>
+    </a>
+  `;
+}
+
+// Render a tall case study card (spans 2 rows)
+function renderCaseStudyCardTall(study) {
+  const mockupImage = study.id === 'offerandmore' 
+    ? '/images/offers-mockup.png'
+    : study.id === 'grouporders'
+    ? '/images/grouporders-mockup.png'
+    : '/images/tripplanning-mockup.png';
+    
+  return `
+    <a href="${study.slug}" class="card card-tall case-study-card case-study-tall">
       <div class="card-content">
         <span class="section-label">Case Study</span>
         <h3>${study.title}</h3>
@@ -145,8 +188,8 @@ export function renderCaseStudyPage(slug) {
   
   return `
     <div class="case-study-page">
-      <a href="/" class="back-button">
-        ${renderIcons.arrowLeft()} Back
+      <a href="/" class="close-button" aria-label="Close">
+        ${renderIcons.close()}
       </a>
       
       <header class="case-study-header">
@@ -267,9 +310,6 @@ export function renderCaseStudyPage(slug) {
         </section>
       ` : ''}
       
-      <a href="/" class="back-button">
-        ${renderIcons.arrowLeft()} Back to Home
-      </a>
     </div>
   `;
 }
@@ -278,8 +318,8 @@ export function renderCaseStudyPage(slug) {
 export function renderReadingListPage() {
   return `
     <div class="case-study-page">
-      <a href="/" class="back-button">
-        ${renderIcons.arrowLeft()} Back
+      <a href="/" class="close-button" aria-label="Close">
+        ${renderIcons.close()}
       </a>
       <h1>Reading List</h1>
       <p>Coming soon...</p>
@@ -291,8 +331,8 @@ export function renderReadingListPage() {
 export function renderChatPage() {
   return `
     <div class="case-study-page">
-      <a href="/" class="back-button">
-        ${renderIcons.arrowLeft()} Back
+      <a href="/" class="close-button" aria-label="Close">
+        ${renderIcons.close()}
       </a>
       <h1>AI Assistant</h1>
       <p>Chat with my AI assistant coming soon...</p>
@@ -304,12 +344,12 @@ export function renderChatPage() {
 export function render404Page() {
   return `
     <div class="case-study-page" style="text-align: center; padding: 4rem;">
+      <a href="/" class="close-button" aria-label="Close">
+        ${renderIcons.close()}
+      </a>
       <h1 style="font-size: 6rem; margin-bottom: 1rem;">404</h1>
       <p style="font-size: 1.25rem; margin-bottom: 2rem;">It seems like this page doesn't exist, or it's gone.</p>
       <p>But don't worry! I'll get you back on track :)</p>
-      <a href="/" class="back-button" style="margin-top: 2rem; display: inline-flex;">
-        ${renderIcons.arrowLeft()} Back home
-      </a>
     </div>
   `;
 }
