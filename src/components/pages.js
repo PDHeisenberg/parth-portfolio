@@ -213,6 +213,12 @@ export function renderCaseStudyPage(slug) {
             Full Presentation ${renderIcons.arrow()}
           </a>
         </div>
+        
+        <!-- AI Chat Trigger -->
+        <button class="ai-chat-trigger-btn" onclick="openAIChat('${study.id}')">
+          <span class="ai-icon">🤖</span>
+          <span>Ask AI about this project</span>
+        </button>
       </header>
       
       ${study.context ? `

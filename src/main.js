@@ -1,11 +1,17 @@
 // Main entry point - imports and initializes the app
 import { renderHomePage, renderCaseStudyPage } from './components/pages.js';
 import { initRouter } from './router.js';
+import { initScrollAnimations } from './animations.js';
+import { initAIChat } from './components/aiChat.js';
+import './styles/aiChat.css';
 
 // Initialize the application
 function init() {
   // Set up client-side routing
   initRouter();
+  
+  // Initialize AI Chat
+  initAIChat();
   
   // Initial render based on current URL
   handleRoute();
@@ -19,9 +25,13 @@ function handleRoute() {
   if (path === '/' || path === '/index.html') {
     app.innerHTML = renderHomePage();
     initHomePageInteractions();
+    // Initialize scroll animations after render
+    setTimeout(() => initScrollAnimations(), 100);
   } else if (path.startsWith('/work/')) {
     const slug = path.replace('/work/', '');
     app.innerHTML = renderCaseStudyPage(slug);
+    // Initialize animations on case study pages too
+    setTimeout(() => initScrollAnimations(), 100);
   } else if (path === '/Readinglist') {
     app.innerHTML = renderReadingListPage();
   } else if (path === '/chat') {
