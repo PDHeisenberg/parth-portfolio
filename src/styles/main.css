@@ -1,0 +1,513 @@
+/* ===== CSS Variables (Design Tokens) ===== */
+:root {
+  /* Colors */
+  --color-bg: #F5F5E9;
+  --color-bg-card: #EAEADC;
+  --color-accent: #D4FF00;
+  --color-accent-hover: #C4EF00;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #666666;
+  --color-border: #E0E0D0;
+  
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ===== Layout ===== */
+.portfolio {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+/* ===== Typography ===== */
+.name {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-label {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  text-transform: capitalize;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ===== Bento Grid ===== */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 600px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Cards ===== */
+.card {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card--span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .card--span-2 {
+    grid-column: span 1;
+  }
+}
+
+/* ===== About Card ===== */
+.about-card {
+  grid-column: span 1;
+}
+
+.about-card p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  line-height: 1.7;
+}
+
+/* ===== Profile Card ===== */
+.profile-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  overflow: hidden;
+}
+
+.profile-photo-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.rotating-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ===== AI Assistant Button ===== */
+.ai-button {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: var(--color-bg);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-sm) var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  z-index: 10;
+}
+
+.ai-button:hover {
+  background: #fff;
+}
+
+.ai-button span {
+  font-weight: 500;
+}
+
+/* ===== Case Study Card ===== */
+.case-study-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.case-study-card .card-content {
+  flex: 1;
+}
+
+.case-study-card h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+}
+
+.case-study-card .company {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.case-study-card .mockup {
+  margin-top: var(--spacing-md);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.case-study-card .mockup img {
+  width: 100%;
+  height: auto;
+}
+
+/* ===== LinkedIn Card ===== */
+.linkedin-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-card);
+  position: relative;
+}
+
+.linkedin-card svg {
+  width: 60px;
+  height: 60px;
+  fill: #0A66C2;
+}
+
+.linkedin-card .arrow {
+  position: absolute;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  opacity: 0.5;
+}
+
+/* ===== Experience Card ===== */
+.experience-card {
+  grid-column: span 1;
+}
+
+.experience-list {
+  list-style: none;
+  margin-top: var(--spacing-md);
+}
+
+.experience-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.experience-item:last-child {
+  border-bottom: none;
+}
+
+.experience-item h4 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.experience-item .company {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.experience-item .period {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+.resume-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: background var(--transition-fast);
+}
+
+.resume-link:hover {
+  background: #fff;
+}
+
+/* ===== Services Card ===== */
+.services-card {
+  overflow: hidden;
+}
+
+.services-carousel {
+  display: flex;
+  gap: var(--spacing-md);
+  animation: scroll 15s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.service-item {
+  flex-shrink: 0;
+  width: 200px;
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.service-item h3 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+}
+
+.service-item p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ===== Reading List Card ===== */
+.reading-card {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.reading-card .book-cover {
+  width: 80px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== Social Links ===== */
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+}
+
+@media (max-width: 600px) {
+  .social-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.social-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.social-card svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.social-card h5 {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: var(--spacing-2xl) 0 var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ===== Case Study Page ===== */
+.case-study-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.case-study-header {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.case-study-header h1 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-sm);
+}
+
+.case-study-header .description {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.case-study-meta {
+  display: flex;
+  gap: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.case-study-meta-item h4 {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-xs);
+}
+
+.case-study-meta-item p {
+  font-weight: 600;
+}
+
+.case-study-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.case-study-section h2 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.case-study-section p {
+  margin-bottom: var(--spacing-md);
+}
+
+.case-study-section ul {
+  padding-left: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.case-study-section li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xl);
+  transition: background var(--transition-fast);
+}
+
+.back-button:hover {
+  background: var(--color-accent);
+}
+
+/* Full Presentation Link */
+.presentation-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  transition: background var(--transition-fast);
+}
+
+.presentation-link:hover {
+  background: var(--color-accent-hover);
+}
