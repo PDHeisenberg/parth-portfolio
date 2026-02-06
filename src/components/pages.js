@@ -3,16 +3,24 @@ import { profile, experience, caseStudies, services, socialLinks, additionalLink
 import { renderIcons } from './icons.js';
 
 // Render the home page
+// Layout matches Framer: 3-column grid
+// Row 1: About(2col) | Profile(1col) | Offers Case Study(1col, 2rows TALL)
+// Row 2: LinkedIn(1col) | Experience(2col) | [continues]
+// Row 3: Services(1col) | Cart&Trip(2col) | Group Orders(1col, 2rows TALL)  
+// Row 4: Reading List(2col) | [continues]
+// Row 5: Twitter | Instagram | Email | AI Assistant | FREE Icon (lime bg)
+
 export function renderHomePage() {
   return `
     <div class="bento-grid">
-      <!-- About Card - MEDIUM -->
+      <!-- ROW 1 -->
+      <!-- About Card - 2 columns -->
       <div class="card card-medium about-card">
         <span class="section-label">About</span>
-        <p>I'm a Singapore based designer, driven by curiosity and a love for solving complex problems.</p>
+        <p>Designer based in Singapore 🇸🇬, driven by curiosity and a knack for building cool stuff. Designing isn't just my job—it's a lens through which I view everything.</p>
       </div>
       
-      <!-- Profile Photo Card - SMALL -->
+      <!-- Profile Photo Card - 1 column -->
       <div class="card card-small profile-card">
         <div class="profile-photo-wrapper">
           <svg class="rotating-text-svg" viewBox="0 0 200 200">
@@ -21,7 +29,7 @@ export function renderHomePage() {
             </defs>
             <text>
               <textPath href="#circlePath" class="rotating-text-path">
-                WORKING ON COOL STUFF • PRODUCT DESIGNER • 
+                PRODUCT DESIGNER • WORKING ON COOL STUFF • 
               </textPath>
             </text>
           </svg>
@@ -29,16 +37,17 @@ export function renderHomePage() {
         </div>
       </div>
       
-      <!-- LinkedIn Card - SMALL (next to profile) -->
+      <!-- Case Study: Offers & More - 1 column, 2 rows (TALL) - positioned col 3, rows 1-2 -->
+      ${renderCaseStudyCardTall(caseStudies[0], 'accent', 'tall-pos-1')}
+      
+      <!-- ROW 2 -->
+      <!-- LinkedIn Card - 1 column -->
       <a href="https://www.linkedin.com/in/parthdhawan/" target="_blank" rel="noopener" class="card card-small linkedin-card">
         ${renderIcons.linkedin()}
         <span class="arrow-icon-small">↗</span>
       </a>
       
-      <!-- Case Study 1: Offers & More - MEDIUM on mobile -->
-      ${renderCaseStudyCardTall(caseStudies[0])}
-      
-      <!-- Experience Card - MEDIUM -->
+      <!-- Experience Card - 2 columns -->
       <div class="card card-medium experience-card">
         <span class="section-label">Experience</span>
         <ul class="experience-list">
@@ -57,17 +66,22 @@ export function renderHomePage() {
         </a>
       </div>
       
-      <!-- Case Study 2: Group Orders - MEDIUM -->
-      ${renderCaseStudyCard(caseStudies[1], 'card-medium')}
-      
-      <!-- Services Card - MEDIUM -->
-      <div class="card card-medium service-card">
+      <!-- ROW 3 -->
+      <!-- Services Card - 1 column -->
+      <div class="card card-small service-card">
         <span class="section-label">Services</span>
         <h3>Mobile/Web Designs</h3>
         <p>Crafting intuitive and engaging designs for both mobile and web platforms.</p>
       </div>
       
-      <!-- Reading List Card - MEDIUM -->
+      <!-- Case Study: Cart & Trip Planning - 2 columns -->
+      ${renderCaseStudyCard(caseStudies[2], 'card-medium')}
+      
+      <!-- Case Study: Group Orders - 1 column, 2 rows (TALL) - positioned col 3, rows 3-4 -->
+      ${renderCaseStudyCardTall(caseStudies[1], 'accent', 'tall-pos-2')}
+      
+      <!-- ROW 4 -->
+      <!-- Reading List Card - 2 columns -->
       <div class="card card-medium reading-list-card">
         <span class="section-label">Reading list</span>
         <div class="books-grid">
@@ -77,10 +91,7 @@ export function renderHomePage() {
         </div>
       </div>
       
-      <!-- Case Study 3: Trip Planning - MEDIUM -->
-      ${renderCaseStudyCard(caseStudies[2], 'card-medium')}
-      
-      <!-- Social Links - SMALL each -->
+      <!-- ROW 5 - Social links -->
       <a href="https://x.com/wwheisenbergeth" target="_blank" rel="noopener" class="card card-small social-link-card">
         ${renderIcons.twitter()}
         <span>@wwheisenbergeth</span>
@@ -96,13 +107,13 @@ export function renderHomePage() {
         <span>parthdhawan28</span>
       </a>
       
-      <!-- Talk to AI Assistant - SMALL -->
+      <!-- Talk to AI Assistant - 1 column -->
       <a href="/chat" class="card card-small ai-link-card">
         <span>Talk to my AI assistant</span>
       </a>
       
-      <!-- Free Icon Set - SMALL -->
-      <a href="https://www.figma.com/community/file/1275092859040896934/free-editable-icon-set-with-animations" target="_blank" rel="noopener" class="card card-small icon-set-card">
+      <!-- Free Icon Set - 1 column with accent background -->
+      <a href="https://www.figma.com/community/file/1275092859040896934/free-editable-icon-set-with-animations" target="_blank" rel="noopener" class="card card-small icon-set-card card-accent">
         <span class="free-badge">FREE</span>
         <span>Icon set</span>
       </a>
@@ -157,15 +168,19 @@ function renderCaseStudyCard(study, sizeClass = 'card-medium') {
 }
 
 // Render a tall case study card (spans 2 rows)
-function renderCaseStudyCardTall(study) {
+// accent: 'accent' adds lime green background
+// posClass: positioning class for grid placement
+function renderCaseStudyCardTall(study, accent = '', posClass = '') {
   const mockupImage = study.id === 'offerandmore' 
     ? '/images/offers-mockup.png'
     : study.id === 'grouporders'
     ? '/images/grouporders-mockup.png'
     : '/images/tripplanning-mockup.png';
+  
+  const accentClass = accent === 'accent' ? 'card-accent' : '';
     
   return `
-    <a href="${study.slug}" class="card card-tall case-study-card case-study-tall">
+    <a href="${study.slug}" class="card card-tall case-study-card case-study-tall ${accentClass} ${posClass}">
       <div class="card-content">
         <span class="section-label">Case Study</span>
         <h3>${study.title}</h3>

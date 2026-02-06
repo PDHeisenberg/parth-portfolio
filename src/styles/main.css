@@ -122,24 +122,35 @@ button {
 }
 
 /* ===== Bento Grid ===== */
+/* 4-column grid to match Framer layout */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--spacing-lg);
+  grid-auto-rows: minmax(150px, auto);
+  grid-auto-flow: dense;
+  gap: var(--spacing-md);
   width: 100%;
   max-width: 100%;
-  padding: var(--spacing-md);
+  padding: var(--spacing-xl);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
     gap: var(--spacing-md);
     padding: var(--spacing-sm);
   }
 }
 
-/* Card sizes - iOS widget style */
+/* Card sizes - 3-column bento grid */
 .card-small {
   grid-column: span 1;
   grid-row: span 1;
@@ -164,6 +175,27 @@ button {
   min-width: 0;
 }
 
+/* TEMP: Disabled explicit positioning for debugging */
+/*
+.tall-pos-1 {
+  grid-column: 4 !important;
+  grid-row: 1 / span 2 !important;
+}
+
+.tall-pos-2 {
+  grid-column: 4 !important;
+}
+*/
+
+/* Accent card - lime green background */
+.card-accent {
+  background-color: var(--color-accent) !important;
+}
+
+.card-accent .section-label {
+  background-color: var(--color-bg-card);
+}
+
 @media (max-width: 900px) {
   .card-small {
     grid-column: span 1;
@@ -178,9 +210,18 @@ button {
     grid-row: span 2;
   }
   
-  /* On mobile, tall cards become medium to avoid overlap */
   .card-tall {
     grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-small,
+  .card-medium,
+  .card-large,
+  .card-tall {
+    grid-column: span 1;
     grid-row: span 1;
   }
 }
@@ -941,6 +982,11 @@ button {
   border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
   font-weight: 700;
+}
+
+/* When icon-set-card has accent background, badge should be white */
+.icon-set-card.card-accent .free-badge {
+  background: var(--color-bg-card);
 }
 
 .icon-set-card span:last-child {
