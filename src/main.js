@@ -3,9 +3,7 @@ import { renderHomePage, renderCaseStudyPage } from './components/pages.js';
 import { initRouter } from './router.js';
 import { initScrollAnimations } from './animations.js';
 import { initAIChat } from './components/aiChat.js';
-import { createLightbulbHTML, initLightbulbToggle } from './components/lightbulbToggle.js';
 import './styles/aiChat.css';
-import './styles/lightbulb.css';
 
 // Initialize the application
 function init() {
@@ -14,14 +12,6 @@ function init() {
   
   // Initialize AI Chat
   initAIChat();
-  
-  // Add lightbulb toggle to DOM
-  const lightbulbContainer = document.createElement('div');
-  lightbulbContainer.innerHTML = createLightbulbHTML();
-  document.body.appendChild(lightbulbContainer);
-  
-  // Initialize lightbulb toggle
-  initLightbulbToggle();
   
   // Initial render based on current URL
   handleRoute();
