@@ -38,7 +38,7 @@ export function renderHomePage() {
       </div>
       
       <!-- Case Study: Offers & More - 1 column, 2 rows (TALL) - positioned col 3, rows 1-2 -->
-      ${renderCaseStudyCardTall(caseStudies[0], 'accent', 'tall-pos-1')}
+      ${renderCaseStudyCardTall(caseStudies[0], '', 'tall-pos-1')}
       
       <!-- ROW 2 -->
       <!-- LinkedIn Card - 1 column -->
@@ -78,7 +78,7 @@ export function renderHomePage() {
       ${renderCaseStudyCard(caseStudies[2], 'card-medium')}
       
       <!-- Case Study: Group Orders - 1 column, 2 rows (TALL) - positioned col 3, rows 3-4 -->
-      ${renderCaseStudyCardTall(caseStudies[1], 'accent', 'tall-pos-2')}
+      ${renderCaseStudyCardTall(caseStudies[1], '', 'tall-pos-2')}
       
       <!-- ROW 4 -->
       <!-- Reading List Card - 2 columns -->

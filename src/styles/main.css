@@ -175,8 +175,7 @@ button {
   min-width: 0;
 }
 
-/* TEMP: Disabled explicit positioning for debugging */
-/*
+/* Position tall cards in rightmost column */
 .tall-pos-1 {
   grid-column: 4 !important;
   grid-row: 1 / span 2 !important;
@@ -185,7 +184,6 @@ button {
 .tall-pos-2 {
   grid-column: 4 !important;
 }
-*/
 
 /* Accent card - lime green background */
 .card-accent {
@@ -494,30 +492,30 @@ button {
 
 .case-study-card .mockup {
   position: absolute;
-  top: var(--spacing-xl);
-  right: var(--spacing-md);
-  width: 50%;
-  max-width: 180px;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 45%;
+  max-width: 160px;
   z-index: 1;
 }
 
-/* Phone frame around mockup - thinner */
+/* Phone frame around mockup */
 .case-study-card .mockup::before {
   content: '';
   position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -60px;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
   background: #1a1a1a;
-  border-radius: 28px;
+  border-radius: 32px;
   z-index: -1;
 }
 
 .case-study-card .mockup img {
   width: 100%;
   height: auto;
-  border-radius: 24px;
+  border-radius: 26px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
@@ -527,30 +525,32 @@ button {
   }
   
   .case-study-card .mockup {
-    width: 48%;
-    max-width: 140px;
-    top: var(--spacing-lg);
-    right: var(--spacing-sm);
+    width: 45%;
+    max-width: 130px;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
   }
   
   .case-study-card .mockup::before {
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -50px;
-    border-radius: 24px;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 28px;
   }
 }
 
 /* Tall case study card */
 .case-study-tall {
-  min-height: 400px;
+  min-height: 450px;
 }
 
 .case-study-tall .mockup {
-  width: 65%;
-  max-width: 200px;
-  top: var(--spacing-xl);
+  width: 70%;
+  max-width: 180px;
+  top: var(--spacing-lg);
+  right: 50%;
+  transform: translateX(50%);
 }
 
 @media (max-width: 900px) {
